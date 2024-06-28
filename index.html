@@ -1,29 +1,71 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee-inator 3000 | A project by Shreyas Deo</title>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+    <link rel="stylesheet" href="style.css">
   </head>
-  <body>
+<body>
     <a-scene>
       <a-assets>
-        <a-asset-item id="cup" src="cup.glb"></a-asset-item>
+        <a-asset-item id="cup" src="3DModels/cup.glb"></a-asset-item>
+        <a-asset-item id="screen" src="3DModels/screen.glb"></a-asset-item>
+        <a-asset-item id="graph" src="3DModels/graph.glb"></a-asset-item>
+        <a-asset-item id="sheep-model" src="3DModels/sheep-model.glb"></a-asset-item>
+        <a-asset-item id="heart" src="3DModels/heart.glb"></a-asset-item>
       </a-assets>
-      <a-entity gltf-model="#cup" position="0 2.5 -6"></a-entity>
+      <!--Step 1: TITLE-->
+      <a-entity text="font: mozillavr; value: Coffee;" position="2.15 5.5 -1" scale="5 5 5"></a-entity>
+      <a-entity text="font: exo2bold; value: Man's greatest invention;" position="0.5 5.25 -1" scale="2 2 2"></a-entity>
+      <a-entity text="font: exo2bold; value: Press D to go right!;" position="0.25 5 -1" scale="1 1 1"></a-entity>
+      <!--Step 2: HISTORY-->
+      <a-entity text="font: exo2bold; value: Coffee was discovered in Ethiopia around 800AD, by a shepherd named Kaldi." position="25 5.25 -1" scale="2 2 2"></a-entity>
+      <a-entity text="font: exo2bold; value: Press S to go back!;" position="25 5 -1" scale="1 1 1"></a-entity>
+      <a-entity gltf-model="#sheep-model" position="26 2.5 -8"></a-entity>
+      <!--Step 3: STATISTICS-->
+      <a-entity text="font: exo2bold; value: As many as 2.25 billion cups of coffee are consumed daily!" position="25 5.25 15" scale="2 2 2"></a-entity>
+      <a-entity text="font: exo2bold; value: Press D to go right!;" position="25 5 15" scale="1 1 1"></a-entity>
+      <a-entity gltf-model="#cup" position="25 2.5 10" scale="0.5 0.5 0.5"></a-entity>
+      <!--Step 4: STATISTICS 2-->
+      <a-entity text="font: exo2bold; value: This totals to over 12% of people drinking coffee DAILY!" position="45 5.25 15" scale="2 2 2"></a-entity>
+      <a-entity text="font: exo2bold; value: Press S to go back!;" position="45 5 15" scale="1 1 1"></a-entity>
+      <a-entity gltf-model="#graph" position="45 2.5 10" scale="0.5 0.5 0.5"></a-entity>
+      <!--Step 5: STATISTICS 3-->
+      <a-entity text="font: exo2bold; value: We programmers are proud to be a part of that demographic!" position="45 5.25 28" scale="2 2 2"></a-entity>
+      <a-entity text="font: exo2bold; value: Press A to go left!;" position="45 5 28" scale="1 1 1"></a-entity>
+      <a-entity gltf-model="#screen" position="45 2.5 24" rotation="0 -90" scale="0.5 0.5 0.5"></a-entity>
+      <!--STEP 6: CONCLUSION-->
+      <a-entity text="font: exo2bold; value: Thank you for visiting the Coffee-inator 3000!;" position="25 5.25 28" scale="2 2 2"></a-entity>
+      <a-entity text="font: exo2bold; value: Bye!;" position="25 5 28" scale="1 1 1"></a-entity>
+      <a-entity gltf-model="#heart" position="25 2.5 24" rotation="0 90"></a-entity>
+      <!--Background-->
       <a-entity environment="preset: yavapai"></a-entity>
-      <a-camera position="0 5 0" look-at="#cup"></a-camera>
+      <a-camera wasd-control position="0 5 0"></a-camera>
     </a-scene>
-    <button style="position: absolute; left: 10em; bottom: 1em;" onclick="ChangeMusicState()">Music</button>
-  </body>
-  <script>
-    // Play background music
-    var audio = new Audio('music.mp3');
-    audio.loop = true;
-    function ChangeMusicState() {
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
+    <button id="randomise" onclick="RandomizeEnvironment()">Randomize!</button>
+    <button id="musicBtn" onclick="ChangeMusicState()">Music!</button>
+    <script>
+      // Play background music
+      var audio = new Audio('music.mp3');
+      audio.loop = true;
+      function ChangeMusicState() {
+        if (audio.paused) {
+          audio.play();
+        } else {
+          audio.pause();
+        }
       }
-    }
-  </script>
+      // Randomize environment
+      function RandomizeEnvironment() {
+        var randomPreset = Math.floor(Math.random() * 10);
+        var presets = ["default", "contact", "egypt", "checkerboard", "forest", "goaland", "yavapai", "goldmine", "threetowers", "poison"];
+        var randomPresetName = presets[randomPreset];
+        var environment = document.querySelector("a-entity[environment]");
+        environment.setAttribute("environment", "preset", randomPresetName);
+      }
+    </script>
+  </body>
 </html>
