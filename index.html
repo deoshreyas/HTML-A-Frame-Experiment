@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-asset-item id="cup" src="cup.glb"></a-asset-item>
+      </a-assets>
+      <a-entity gltf-model="#cup" position="0 2.5 -6"></a-entity>
+      <a-entity environment="preset: yavapai"></a-entity>
+      <a-camera position="0 5 0" look-at="#cup"></a-camera>
+    </a-scene>
+    <button style="position: absolute; left: 10em; bottom: 1em;" onclick="ChangeMusicState()">Music</button>
+  </body>
+  <script>
+    // Play background music
+    var audio = new Audio('music.mp3');
+    audio.loop = true;
+    function ChangeMusicState() {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+  </script>
+</html>
